@@ -1,0 +1,12 @@
+
+.idea/
+
+*.pyc
+
+data/
+
+sign_sample_model/
+
+/sign_sample_moel
+
+/data
