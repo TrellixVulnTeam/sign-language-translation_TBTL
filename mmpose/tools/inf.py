@@ -105,10 +105,11 @@ def main():
         init_dist(args.launcher, **cfg.dist_params)
         
     model = init_pose_model(cfg, checkpoint=args.checkpoint, device='cuda:0')
-    upper_dir = '/nas1/yjun/slt/PHOENIX-2014-T/features/fullFrame-210x260px/dev/'
+    which_data = 'dev'
+    upper_dir = f'/nas1/yjun/slt/PHOENIX-2014-T/features/fullFrame-210x260px/{which_data}/'
     lower_dir = sorted(os.listdir(upper_dir))
     
-    keypoints_list = pd.read_csv('/nas1/yjun/slt/keypoints.csv')['keypoint']
+    keypoints_list = pd.read_csv('/nas1/yjun/slt/mmpose/outputs/keypoints.csv')['keypoint'].to_list()
     keypoints_list_xy = [a + b for a in keypoints_list for b in ['_x', '_y']]
     for dir in tqdm(lower_dir, desc="directory"):
         img_list = sorted(os.listdir(upper_dir + dir))
@@ -121,18 +122,27 @@ def main():
                                                 )
             saving_results = np.vstack((saving_results, results[0][0]['keypoints'][:,:2].reshape(1,266)))
             
-            # visualization
-            # data = vis_pose_result(model,
-            #                     imgArray,
-            #                     results[0],
-            #                     kpt_score_thr=0.1)
+            ########### visualize what you need, only ###########
+            finger = ['thumb1','forefinger1','middle_finger1','ring_finger1','pinky_finger1']
+            fingers = [a + '_' + b for a in ['left','right'] for b in finger]
+            face = ['face-61', 'face-62', 'face-63', 'face-65', 'face-66','face-67']
+            vis_list = fingers + face
+            vis_idx = [keypoints_list.index(kpt_name) for kpt_name in vis_list]
+            data = vis_pose_result(model=model,
+                                img=imgArray,
+                                result=results[0],
+                                radius=1,
+                                kpt_score_thr=0.1,
+                                custom_filter=vis_idx)
             
-            # img_keypoint = Image.fromarray(data, 'RGB')
-            # img_keypoint.save('/nas1/yjun/slt/keypoint/' + img + '_keypoint.png')
+            img_keypoint = Image.fromarray(data, 'RGB')
+            os.makedirs(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{which_data}/{dir}/', exist_ok=True)
+            img_keypoint.save(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{which_data}/{dir}/{img}')
+            ########### visualize what you need, only ###########
         
         df = pd.DataFrame(saving_results, index = img_list, columns=keypoints_list_xy)
-        df.to_csv(f'/nas1/yjun/slt/{dir}.csv')
-    
+        df.to_csv(f'/nas1/yjun/slt/mmpose/outputs/keypoint_csv/{which_data}/{dir}.csv')
+        return 0
 
 if __name__ == '__main__':
     main()

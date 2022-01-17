@@ -110,9 +110,7 @@ mmpose/.mim
 /models
 /outputs
 /data
-models/
-outputs/
-data/
+/pretrained_models
 .vscode
 .idea
 *.pkl

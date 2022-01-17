@@ -112,7 +112,8 @@ def imshow_keypoints(img,
                      pose_link_color=None,
                      radius=4,
                      thickness=1,
-                     show_keypoint_weight=False):
+                     show_keypoint_weight=False,
+                     custom_filter = False):
     """Draw keypoints and links on an image.
 
     Args:
@@ -132,11 +133,18 @@ def imshow_keypoints(img,
 
     img = mmcv.imread(img)
     img_h, img_w, _ = img.shape
-
+        
     for kpts in pose_result:
-
         kpts = np.array(kpts, copy=False)
-
+        
+        ########### visualize what you need, only ###########
+        if custom_filter:
+            custom_filter = sorted(custom_filter)
+            kpts = [kpts[x] for x in custom_filter]
+            pose_kpt_color = [pose_kpt_color[x] for x in custom_filter]
+            skeleton = None
+        ########### visualize what you need, only ###########
+        
         # draw each point on image
         if pose_kpt_color is not None:
             assert len(pose_kpt_color) == len(kpts)

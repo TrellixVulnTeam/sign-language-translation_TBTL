@@ -593,7 +593,8 @@ def vis_pose_result(model,
                     dataset='TopDownCocoDataset',
                     dataset_info=None,
                     show=False,
-                    out_file=None):
+                    out_file=None,
+                    custom_filter = False):
     """Visualize the detection results on the image.
 
     Args:
@@ -842,7 +843,8 @@ def vis_pose_result(model,
         kpt_score_thr=kpt_score_thr,
         bbox_color=bbox_color,
         show=show,
-        out_file=out_file)
+        out_file=out_file,
+        custom_filter = custom_filter)
 
     return img
 
