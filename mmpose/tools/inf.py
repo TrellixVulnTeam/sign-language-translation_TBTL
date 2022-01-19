@@ -105,7 +105,7 @@ def main():
         init_dist(args.launcher, **cfg.dist_params)
         
     model = init_pose_model(cfg, checkpoint=args.checkpoint, device='cuda:0')
-    which_data = 'dev'
+    which_data = 'test'
     upper_dir = f'/nas1/yjun/slt/PHOENIX-2014-T/features/fullFrame-210x260px/{which_data}/'
     lower_dir = sorted(os.listdir(upper_dir))
     
@@ -142,7 +142,7 @@ def main():
         
         df = pd.DataFrame(saving_results, index = img_list, columns=keypoints_list_xy)
         df.to_csv(f'/nas1/yjun/slt/mmpose/outputs/keypoint_csv/{which_data}/{dir}.csv')
-        return 0
+        
 
 if __name__ == '__main__':
     main()
