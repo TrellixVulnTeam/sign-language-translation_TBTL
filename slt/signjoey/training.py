@@ -32,7 +32,8 @@ from signjoey.metrics import wer_single
 from signjoey.vocabulary import SIL_TOKEN
 from torch import Tensor
 from torch.utils.tensorboard import SummaryWriter
-from torchtext.data import Dataset
+from torchtext.legacy.data import Dataset
+# from torchtext.data import Dataset
 from typing import List, Dict
 
 

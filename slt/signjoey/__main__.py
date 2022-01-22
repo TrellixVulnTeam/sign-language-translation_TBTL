@@ -2,19 +2,17 @@ import argparse
 import os
 
 import sys
+sys.path.append('/nas1/yjun/slt/slt/')
 from signjoey.training import train
 from signjoey.prediction import test
 
-sys.path.append("/vol/research/extol/personal/cihan/code/SignJoey")
 
 
 def main():
     ap = argparse.ArgumentParser("Joey NMT")
 
     ap.add_argument("mode", choices=["train", "test"], help="train a model or test")
-
     ap.add_argument("config_path", type=str, help="path to YAML config file")
-
     ap.add_argument("--ckpt", type=str, help="checkpoint for prediction")
 
     ap.add_argument(

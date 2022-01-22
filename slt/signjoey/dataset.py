@@ -2,13 +2,18 @@
 """
 Data module
 """
-from torchtext import data
-from torchtext.data import Field, RawField
+# latest versions: torchtext.legacy
+# from torchtext import data
+# from torchtext.data import Field, RawField
+from torchtext.legacy import data
+from torchtext.legacy.data import Field, RawField
 from typing import List, Tuple
 import pickle
 import gzip
 import torch
-
+import torchvision.transforms as transforms
+import matplotlib.pyplot as plt
+import PIL
 
 def load_dataset_file(filename):
     with gzip.open(filename, "rb") as f:
@@ -50,11 +55,18 @@ class SignTranslationDataset(data.Dataset):
 
         if not isinstance(path, list):
             path = [path]
-
+        
         samples = {}
         for annotation_file in path:
             tmp = load_dataset_file(annotation_file)
             for s in tmp:
+                # tf = transforms.ToPILImage()
+                # img_t = tf(s['sign'])
+                print(s['sign'].shape)
+                print(s['sign'][0].shape)
+                img_t = s['sign'].permute(1,2,0)
+                plt.imshow(img_t)
+                plt.show()
                 seq_id = s["name"]
                 if seq_id in samples:
                     assert samples[seq_id]["name"] == s["name"]

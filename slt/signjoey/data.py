@@ -7,8 +7,11 @@ import sys
 import random
 
 import torch
-from torchtext import data
-from torchtext.data import Dataset, Iterator
+# latest versions: torchtext.legacy
+from torchtext.legacy import data
+from torchtext.legacy.data import Dataset, Iterator
+# from torchtext import data
+# from torchtext.data import Dataset, Iterator
 import socket
 from signjoey.dataset import SignTranslationDataset
 from signjoey.vocabulary import (
@@ -112,7 +115,6 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         lower=txt_lowercase,
         include_lengths=True,
     )
-
     train_data = SignTranslationDataset(
         path=train_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),

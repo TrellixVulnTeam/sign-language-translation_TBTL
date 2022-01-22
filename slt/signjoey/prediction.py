@@ -10,7 +10,8 @@ import time
 import torch.nn as nn
 
 from typing import List
-from torchtext.data import Dataset
+from torchtext.legacy.data import Dataset
+# from torchtext.data import Dataset
 from signjoey.loss import XentLoss
 from signjoey.helpers import (
     bpe_postprocess,
