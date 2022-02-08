@@ -122,6 +122,7 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
         and len(vars(x)["txt"]) <= max_sent_length,
     )
 
+
     gls_max_size = data_cfg.get("gls_voc_limit", sys.maxsize)
     gls_min_freq = data_cfg.get("gls_voc_min_freq", 1)
     txt_max_size = data_cfg.get("txt_voc_limit", sys.maxsize)

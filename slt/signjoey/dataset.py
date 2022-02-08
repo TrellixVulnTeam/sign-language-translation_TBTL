@@ -11,13 +11,17 @@ from typing import List, Tuple
 import pickle
 import gzip
 import torch
-import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
-import PIL
+
+from seCNN2d import extractor
 
 def load_dataset_file(filename):
     with gzip.open(filename, "rb") as f:
         loaded_object = pickle.load(f)
+        loaded_object_0 = loaded_object[0]
+        loaded_object_0_tensor = loaded_object_0['sign']
+        print(loaded_object_0_tensor.shape)
+        print(len(loaded_object))
+        print(loaded_object_0.keys())
         return loaded_object
 
 
@@ -57,16 +61,10 @@ class SignTranslationDataset(data.Dataset):
             path = [path]
         
         samples = {}
-        for annotation_file in path:
-            tmp = load_dataset_file(annotation_file)
+        for annotation_file in path[0]:
+            # tmp = load_dataset_file(annotation_file)
+            tmp = extractor('alexnet', 1024, gpu=0, feature_extract=True, use_pretrained=True, save_pickle=True)
             for s in tmp:
-                # tf = transforms.ToPILImage()
-                # img_t = tf(s['sign'])
-                print(s['sign'].shape)
-                print(s['sign'][0].shape)
-                img_t = s['sign'].permute(1,2,0)
-                plt.imshow(img_t)
-                plt.show()
                 seq_id = s["name"]
                 if seq_id in samples:
                     assert samples[seq_id]["name"] == s["name"]
