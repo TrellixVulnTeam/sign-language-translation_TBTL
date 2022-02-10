@@ -360,7 +360,11 @@ def beam_search(
             : topk_beam_index.size(0)
         ].unsqueeze(1)
         select_indices = batch_index.view(-1)
-
+        
+         ### 수정된 부분
+        select_indices = int(select_indices)
+         ### 수정된 부분
+        
         # append latest prediction
         alive_seq = torch.cat(
             [alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1

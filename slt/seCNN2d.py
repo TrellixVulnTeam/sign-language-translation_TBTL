@@ -104,7 +104,7 @@ class SpatialEmbedding(object):
                     param.requires_grad = False
                     
 
-def extractor(model_name, num_classes, gpu=0, feature_extract=True, use_pretrained=True, save_pickle=False):
+def extractor(model_name, num_classes, phase='train', gpu=0, feature_extract=True, use_pretrained=True, save_pickle=False):
     se = SpatialEmbedding(model_name, num_classes, feature_extract, use_pretrained)
     device = f'cuda:{gpu}'
     # create the model
@@ -119,7 +119,7 @@ def extractor(model_name, num_classes, gpu=0, feature_extract=True, use_pretrain
     print(model_ft)
     
     # 나중에 parser로 받을 부분
-    phase = 'train'
+    phase = phase
     upper_dir = '/nas1/yjun/slt/PHOENIX-2014-T/'
     img_dir = upper_dir + 'features/fullFrame-210x260px/'
     annotation_dir = upper_dir +  '/annotations/manual/'
@@ -154,7 +154,7 @@ def extractor(model_name, num_classes, gpu=0, feature_extract=True, use_pretrain
         }
         dataset.append(seq_dic)
     now = time.strftime("%Y%m%d-%H%M%S")
-    with open(f'{now}.pkl', 'wb') as f:
+    with open(phase + f'{now}.pkl', 'wb') as f:
         pickle.dump(dataset, f, protocol=pickle.HIGHEST_PROTOCOL)
     return dataset
 
