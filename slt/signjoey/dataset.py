@@ -12,18 +12,19 @@ import pickle
 import gzip
 import torch
 
+import os
 from seCNN2d import extractor
 
 def load_dataset_file(filename):
     with gzip.open(filename, "rb") as f:
         loaded_object = pickle.load(f)
-        loaded_object_0 = loaded_object[0]
-        loaded_object_0_tensor = loaded_object_0['sign']
-        print(loaded_object_0_tensor.shape)
-        print(len(loaded_object))
-        print(loaded_object_0.keys())
         return loaded_object
 
+# Customed
+def load_pickle_file(filename):
+    with open(filename, 'rb') as f:
+        loaded_object = pickle.load(f)
+        return loaded_object
 
 class SignTranslationDataset(data.Dataset):
     """Defines a dataset for machine translation."""
@@ -58,14 +59,21 @@ class SignTranslationDataset(data.Dataset):
                 ("txt", fields[4]),
             ]
 
-        if not isinstance(path, list):
-            path = [path]
+        # if not isinstance(path, list):
+        #     path = [path]
         
         samples = {}
         # for annotation_file in path:
             # tmp = load_dataset_file(annotation_file)
         self.phase = phase
-        tmp = extractor('alexnet', 1024, phase=self.phase, gpu=0, feature_extract=True, use_pretrained=True, save_pickle=True)
+        if not os.path.isfile(path):
+            print('creating Spatial Embedding Features', '.'*30)
+            tmp = extractor('alexnet', 1024, phase=self.phase, gpu=0, feature_extract=True, use_pretrained=True, save_pickle=True)
+        else:
+            print(f'found {phase} pkl from: {path}')
+            print(f'pkl loading', '.'*30)
+            tmp = load_pickle_file(path)
+            print(f'pkl loaded!')
         for s in tmp:
             seq_id = s["name"]
             if seq_id in samples:

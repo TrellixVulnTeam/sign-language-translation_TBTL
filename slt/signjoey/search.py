@@ -361,11 +361,9 @@ def beam_search(
         ].unsqueeze(1)
         select_indices = batch_index.view(-1)
         
-         ### 수정된 부분
-        select_indices = int(select_indices)
-         ### 수정된 부분
-        
-        # append latest prediction
+
+        ################## custumed ##################
+        select_indices = select_indices.to(dtype=int)
         alive_seq = torch.cat(
             [alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1
         )  # batch_size*k x hyp_len
@@ -409,6 +407,10 @@ def beam_search(
             # pylint: disable=len-as-condition
             if len(non_finished) == 0:
                 break
+            
+            ################## custumed ##################
+            non_finished = non_finished.to(dtype=int)
+            
             # remove finished batches for the next step
             topk_log_probs = topk_log_probs.index_select(0, non_finished)
             batch_index = batch_index.index_select(0, non_finished)
@@ -419,6 +421,8 @@ def beam_search(
 
         # reorder indices, outputs and masks
         select_indices = batch_index.view(-1)
+        ################## custumed ##################
+        select_indices = select_indices.to(dtype=int)
         encoder_output = encoder_output.index_select(0, select_indices)
         src_mask = src_mask.index_select(0, select_indices)
 

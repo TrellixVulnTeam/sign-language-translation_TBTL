@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "/nas1/yjun/slt/slt/signjoey/__main__.py",
             "console": "integratedTerminal",
-            "args": ["train", "configs/sign.yaml"]
+            "args": ["train", "configs/sign2DCNN.yaml"]
         }
     ]
 }

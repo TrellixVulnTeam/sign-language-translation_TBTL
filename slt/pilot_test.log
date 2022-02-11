@@ -1,0 +1,241 @@
+2022-02-11 18:14:27.169881: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2022-02-11 18:14:27.187615: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 0 with properties: 
+pciBusID: 0000:5e:00.0 name: GeForce RTX 2080 Ti computeCapability: 7.5
+coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.76GiB deviceMemoryBandwidth: 573.69GiB/s
+2022-02-11 18:14:27.188876: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 1 with properties: 
+pciBusID: 0000:86:00.0 name: Tesla M40 24GB computeCapability: 5.2
+coreClock: 1.112GHz coreCount: 24 deviceMemorySize: 22.41GiB deviceMemoryBandwidth: 268.58GiB/s
+2022-02-11 18:14:27.190357: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 2 with properties: 
+pciBusID: 0000:d8:00.0 name: Tesla M40 24GB computeCapability: 5.2
+coreClock: 1.112GHz coreCount: 24 deviceMemorySize: 22.41GiB deviceMemoryBandwidth: 268.58GiB/s
+2022-02-11 18:14:27.191597: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2022-02-11 18:14:27.193320: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2022-02-11 18:14:27.194513: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2022-02-11 18:14:27.194807: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2022-02-11 18:14:27.197344: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2022-02-11 18:14:27.198609: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2022-02-11 18:14:27.202442: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2022-02-11 18:14:27.212402: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1703] Adding visible gpu devices: 0, 1, 2
+2022-02-11 18:14:39,507 Hello! This is Joey-NMT.
+2022-02-11 18:14:39,528 Total params: 26113087
+2022-02-11 18:14:39,530 Trainable parameters: ['decoder.layer_norm.bias', 'decoder.layer_norm.weight', 'decoder.layers.0.dec_layer_norm.bias', 'decoder.layers.0.dec_layer_norm.weight', 'decoder.layers.0.feed_forward.layer_norm.bias', 'decoder.layers.0.feed_forward.layer_norm.weight', 'decoder.layers.0.feed_forward.pwff_layer.0.bias', 'decoder.layers.0.feed_forward.pwff_layer.0.weight', 'decoder.layers.0.feed_forward.pwff_layer.3.bias', 'decoder.layers.0.feed_forward.pwff_layer.3.weight', 'decoder.layers.0.src_trg_att.k_layer.bias', 'decoder.layers.0.src_trg_att.k_layer.weight', 'decoder.layers.0.src_trg_att.output_layer.bias', 'decoder.layers.0.src_trg_att.output_layer.weight', 'decoder.layers.0.src_trg_att.q_layer.bias', 'decoder.layers.0.src_trg_att.q_layer.weight', 'decoder.layers.0.src_trg_att.v_layer.bias', 'decoder.layers.0.src_trg_att.v_layer.weight', 'decoder.layers.0.trg_trg_att.k_layer.bias', 'decoder.layers.0.trg_trg_att.k_layer.weight', 'decoder.layers.0.trg_trg_att.output_layer.bias', 'decoder.layers.0.trg_trg_att.output_layer.weight', 'decoder.layers.0.trg_trg_att.q_layer.bias', 'decoder.layers.0.trg_trg_att.q_layer.weight', 'decoder.layers.0.trg_trg_att.v_layer.bias', 'decoder.layers.0.trg_trg_att.v_layer.weight', 'decoder.layers.0.x_layer_norm.bias', 'decoder.layers.0.x_layer_norm.weight', 'decoder.layers.1.dec_layer_norm.bias', 'decoder.layers.1.dec_layer_norm.weight', 'decoder.layers.1.feed_forward.layer_norm.bias', 'decoder.layers.1.feed_forward.layer_norm.weight', 'decoder.layers.1.feed_forward.pwff_layer.0.bias', 'decoder.layers.1.feed_forward.pwff_layer.0.weight', 'decoder.layers.1.feed_forward.pwff_layer.3.bias', 'decoder.layers.1.feed_forward.pwff_layer.3.weight', 'decoder.layers.1.src_trg_att.k_layer.bias', 'decoder.layers.1.src_trg_att.k_layer.weight', 'decoder.layers.1.src_trg_att.output_layer.bias', 'decoder.layers.1.src_trg_att.output_layer.weight', 'decoder.layers.1.src_trg_att.q_layer.bias', 'decoder.layers.1.src_trg_att.q_layer.weight', 'decoder.layers.1.src_trg_att.v_layer.bias', 'decoder.layers.1.src_trg_att.v_layer.weight', 'decoder.layers.1.trg_trg_att.k_layer.bias', 'decoder.layers.1.trg_trg_att.k_layer.weight', 'decoder.layers.1.trg_trg_att.output_layer.bias', 'decoder.layers.1.trg_trg_att.output_layer.weight', 'decoder.layers.1.trg_trg_att.q_layer.bias', 'decoder.layers.1.trg_trg_att.q_layer.weight', 'decoder.layers.1.trg_trg_att.v_layer.bias', 'decoder.layers.1.trg_trg_att.v_layer.weight', 'decoder.layers.1.x_layer_norm.bias', 'decoder.layers.1.x_layer_norm.weight', 'decoder.layers.2.dec_layer_norm.bias', 'decoder.layers.2.dec_layer_norm.weight', 'decoder.layers.2.feed_forward.layer_norm.bias', 'decoder.layers.2.feed_forward.layer_norm.weight', 'decoder.layers.2.feed_forward.pwff_layer.0.bias', 'decoder.layers.2.feed_forward.pwff_layer.0.weight', 'decoder.layers.2.feed_forward.pwff_layer.3.bias', 'decoder.layers.2.feed_forward.pwff_layer.3.weight', 'decoder.layers.2.src_trg_att.k_layer.bias', 'decoder.layers.2.src_trg_att.k_layer.weight', 'decoder.layers.2.src_trg_att.output_layer.bias', 'decoder.layers.2.src_trg_att.output_layer.weight', 'decoder.layers.2.src_trg_att.q_layer.bias', 'decoder.layers.2.src_trg_att.q_layer.weight', 'decoder.layers.2.src_trg_att.v_layer.bias', 'decoder.layers.2.src_trg_att.v_layer.weight', 'decoder.layers.2.trg_trg_att.k_layer.bias', 'decoder.layers.2.trg_trg_att.k_layer.weight', 'decoder.layers.2.trg_trg_att.output_layer.bias', 'decoder.layers.2.trg_trg_att.output_layer.weight', 'decoder.layers.2.trg_trg_att.q_layer.bias', 'decoder.layers.2.trg_trg_att.q_layer.weight', 'decoder.layers.2.trg_trg_att.v_layer.bias', 'decoder.layers.2.trg_trg_att.v_layer.weight', 'decoder.layers.2.x_layer_norm.bias', 'decoder.layers.2.x_layer_norm.weight', 'decoder.output_layer.weight', 'encoder.layer_norm.bias', 'encoder.layer_norm.weight', 'encoder.layers.0.feed_forward.layer_norm.bias', 'encoder.layers.0.feed_forward.layer_norm.weight', 'encoder.layers.0.feed_forward.pwff_layer.0.bias', 'encoder.layers.0.feed_forward.pwff_layer.0.weight', 'encoder.layers.0.feed_forward.pwff_layer.3.bias', 'encoder.layers.0.feed_forward.pwff_layer.3.weight', 'encoder.layers.0.layer_norm.bias', 'encoder.layers.0.layer_norm.weight', 'encoder.layers.0.src_src_att.k_layer.bias', 'encoder.layers.0.src_src_att.k_layer.weight', 'encoder.layers.0.src_src_att.output_layer.bias', 'encoder.layers.0.src_src_att.output_layer.weight', 'encoder.layers.0.src_src_att.q_layer.bias', 'encoder.layers.0.src_src_att.q_layer.weight', 'encoder.layers.0.src_src_att.v_layer.bias', 'encoder.layers.0.src_src_att.v_layer.weight', 'encoder.layers.1.feed_forward.layer_norm.bias', 'encoder.layers.1.feed_forward.layer_norm.weight', 'encoder.layers.1.feed_forward.pwff_layer.0.bias', 'encoder.layers.1.feed_forward.pwff_layer.0.weight', 'encoder.layers.1.feed_forward.pwff_layer.3.bias', 'encoder.layers.1.feed_forward.pwff_layer.3.weight', 'encoder.layers.1.layer_norm.bias', 'encoder.layers.1.layer_norm.weight', 'encoder.layers.1.src_src_att.k_layer.bias', 'encoder.layers.1.src_src_att.k_layer.weight', 'encoder.layers.1.src_src_att.output_layer.bias', 'encoder.layers.1.src_src_att.output_layer.weight', 'encoder.layers.1.src_src_att.q_layer.bias', 'encoder.layers.1.src_src_att.q_layer.weight', 'encoder.layers.1.src_src_att.v_layer.bias', 'encoder.layers.1.src_src_att.v_layer.weight', 'encoder.layers.2.feed_forward.layer_norm.bias', 'encoder.layers.2.feed_forward.layer_norm.weight', 'encoder.layers.2.feed_forward.pwff_layer.0.bias', 'encoder.layers.2.feed_forward.pwff_layer.0.weight', 'encoder.layers.2.feed_forward.pwff_layer.3.bias', 'encoder.layers.2.feed_forward.pwff_layer.3.weight', 'encoder.layers.2.layer_norm.bias', 'encoder.layers.2.layer_norm.weight', 'encoder.layers.2.src_src_att.k_layer.bias', 'encoder.layers.2.src_src_att.k_layer.weight', 'encoder.layers.2.src_src_att.output_layer.bias', 'encoder.layers.2.src_src_att.output_layer.weight', 'encoder.layers.2.src_src_att.q_layer.bias', 'encoder.layers.2.src_src_att.q_layer.weight', 'encoder.layers.2.src_src_att.v_layer.bias', 'encoder.layers.2.src_src_att.v_layer.weight', 'gloss_output_layer.bias', 'gloss_output_layer.weight', 'sgn_embed.ln.bias', 'sgn_embed.ln.weight', 'sgn_embed.norm.norm.bias', 'sgn_embed.norm.norm.weight', 'txt_embed.lut.weight', 'txt_embed.norm.norm.bias', 'txt_embed.norm.norm.weight']
+2022-02-11 18:14:43,082 cfg.name                           : sign_experiment
+2022-02-11 18:14:43,083 cfg.data.data_path                 : ./data/
+2022-02-11 18:14:43,084 cfg.data.version                   : phoenix_2014_trans
+2022-02-11 18:14:43,085 cfg.data.sgn                       : sign
+2022-02-11 18:14:43,087 cfg.data.txt                       : text
+2022-02-11 18:14:43,088 cfg.data.gls                       : gloss
+2022-02-11 18:14:43,090 cfg.data.train                     : 2DCNN/train.pkl
+2022-02-11 18:14:43,091 cfg.data.dev                       : 2DCNN/dev.pkl
+2022-02-11 18:14:43,093 cfg.data.test                      : 2DCNN/test.pkl
+2022-02-11 18:14:43,094 cfg.data.feature_size              : 1024
+2022-02-11 18:14:43,096 cfg.data.level                     : word
+2022-02-11 18:14:43,097 cfg.data.txt_lowercase             : True
+2022-02-11 18:14:43,098 cfg.data.max_sent_length           : 400
+2022-02-11 18:14:43,099 cfg.data.random_train_subset       : -1
+2022-02-11 18:14:43,100 cfg.data.random_dev_subset         : -1
+2022-02-11 18:14:43,101 cfg.testing.recognition_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-02-11 18:14:43,102 cfg.testing.translation_beam_sizes : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+2022-02-11 18:14:43,104 cfg.testing.translation_beam_alphas : [-1, 0, 1, 2, 3, 4, 5]
+2022-02-11 18:14:43,105 cfg.training.reset_best_ckpt       : False
+2022-02-11 18:14:43,106 cfg.training.reset_scheduler       : False
+2022-02-11 18:14:43,107 cfg.training.reset_optimizer       : False
+2022-02-11 18:14:43,107 cfg.training.random_seed           : 42
+2022-02-11 18:14:43,109 cfg.training.model_dir             : ./sign_sample_model
+2022-02-11 18:14:43,110 cfg.training.recognition_loss_weight : 1.0
+2022-02-11 18:14:43,111 cfg.training.translation_loss_weight : 1.0
+2022-02-11 18:14:43,112 cfg.training.eval_metric           : bleu
+2022-02-11 18:14:43,113 cfg.training.optimizer             : adam
+2022-02-11 18:14:43,113 cfg.training.learning_rate         : 0.001
+2022-02-11 18:14:43,114 cfg.training.batch_size            : 32
+2022-02-11 18:14:43,116 cfg.training.num_valid_log         : 5
+2022-02-11 18:14:43,116 cfg.training.epochs                : 5000000
+2022-02-11 18:14:43,117 cfg.training.early_stopping_metric : eval_metric
+2022-02-11 18:14:43,118 cfg.training.batch_type            : sentence
+2022-02-11 18:14:43,119 cfg.training.translation_normalization : batch
+2022-02-11 18:14:43,121 cfg.training.eval_recognition_beam_size : 1
+2022-02-11 18:14:43,122 cfg.training.eval_translation_beam_size : 1
+2022-02-11 18:14:43,123 cfg.training.eval_translation_beam_alpha : -1
+2022-02-11 18:14:43,126 cfg.training.overwrite             : True
+2022-02-11 18:14:43,128 cfg.training.shuffle               : True
+2022-02-11 18:14:43,129 cfg.training.use_cuda              : True
+2022-02-11 18:14:43,130 cfg.training.translation_max_output_length : 30
+2022-02-11 18:14:43,131 cfg.training.keep_last_ckpts       : 1
+2022-02-11 18:14:43,132 cfg.training.batch_multiplier      : 1
+2022-02-11 18:14:43,134 cfg.training.logging_freq          : 100
+2022-02-11 18:14:43,135 cfg.training.validation_freq       : 100
+2022-02-11 18:14:43,136 cfg.training.betas                 : [0.9, 0.998]
+2022-02-11 18:14:43,137 cfg.training.scheduling            : plateau
+2022-02-11 18:14:43,139 cfg.training.learning_rate_min     : 1e-07
+2022-02-11 18:14:43,140 cfg.training.weight_decay          : 0.001
+2022-02-11 18:14:43,141 cfg.training.patience              : 8
+2022-02-11 18:14:43,142 cfg.training.decrease_factor       : 0.7
+2022-02-11 18:14:43,143 cfg.training.label_smoothing       : 0.0
+2022-02-11 18:14:43,145 cfg.model.initializer              : xavier
+2022-02-11 18:14:43,146 cfg.model.bias_initializer         : zeros
+2022-02-11 18:14:43,147 cfg.model.init_gain                : 1.0
+2022-02-11 18:14:43,148 cfg.model.embed_initializer        : xavier
+2022-02-11 18:14:43,150 cfg.model.embed_init_gain          : 1.0
+2022-02-11 18:14:43,151 cfg.model.tied_softmax             : False
+2022-02-11 18:14:43,152 cfg.model.encoder.type             : transformer
+2022-02-11 18:14:43,153 cfg.model.encoder.num_layers       : 3
+2022-02-11 18:14:43,155 cfg.model.encoder.num_heads        : 8
+2022-02-11 18:14:43,156 cfg.model.encoder.embeddings.embedding_dim : 512
+2022-02-11 18:14:43,157 cfg.model.encoder.embeddings.scale : False
+2022-02-11 18:14:43,158 cfg.model.encoder.embeddings.dropout : 0.1
+2022-02-11 18:14:43,159 cfg.model.encoder.embeddings.norm_type : batch
+2022-02-11 18:14:43,161 cfg.model.encoder.embeddings.activation_type : softsign
+2022-02-11 18:14:43,162 cfg.model.encoder.hidden_size      : 512
+2022-02-11 18:14:43,163 cfg.model.encoder.ff_size          : 2048
+2022-02-11 18:14:43,164 cfg.model.encoder.dropout          : 0.1
+2022-02-11 18:14:43,165 cfg.model.decoder.type             : transformer
+2022-02-11 18:14:43,166 cfg.model.decoder.num_layers       : 3
+2022-02-11 18:14:43,168 cfg.model.decoder.num_heads        : 8
+2022-02-11 18:14:43,169 cfg.model.decoder.embeddings.embedding_dim : 512
+2022-02-11 18:14:43,170 cfg.model.decoder.embeddings.scale : False
+2022-02-11 18:14:43,171 cfg.model.decoder.embeddings.dropout : 0.1
+2022-02-11 18:14:43,172 cfg.model.decoder.embeddings.norm_type : batch
+2022-02-11 18:14:43,174 cfg.model.decoder.embeddings.activation_type : softsign
+2022-02-11 18:14:43,175 cfg.model.decoder.hidden_size      : 512
+2022-02-11 18:14:43,176 cfg.model.decoder.ff_size          : 2048
+2022-02-11 18:14:43,177 cfg.model.decoder.dropout          : 0.1
+2022-02-11 18:14:43,179 Data set sizes: 
+	train 7095,
+	valid 519,
+	test 642
+2022-02-11 18:14:43,180 First training example:
+	[GLS] JETZT WETTER MORGEN DONNERSTAG ZWOELF FEBRUAR
+	[TXT] und nun die wettervorhersage für morgen donnerstag den zwölften august
+2022-02-11 18:14:43,181 First 10 words (gls): (0) <si> (1) <unk> (2) <pad> (3) REGEN (4) REGION (5) IX (6) KOMMEN (7) MORGEN (8) NORD (9) SONNE
+2022-02-11 18:14:43,182 First 10 words (txt): (0) <unk> (1) <pad> (2) <s> (3) </s> (4) und (5) im (6) es (7) der (8) am (9) in
+2022-02-11 18:14:43,183 Number of unique glosses (types): 1087
+2022-02-11 18:14:43,183 Number of unique words (types): 2888
+2022-02-11 18:14:43,185 SignModel(
+	encoder=TransformerEncoder(num_layers=3, num_heads=8),
+	decoder=TransformerDecoder(num_layers=3, num_heads=8),
+	sgn_embed=SpatialEmbeddings(embedding_dim=512, input_size=1024),
+	txt_embed=Embeddings(embedding_dim=512, vocab_size=2888))
+2022-02-11 18:14:43,198 EPOCH 1
+/home/yjun/anaconda3/envs/slt/lib/python3.7/site-packages/torchtext/legacy/data/field.py:353: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  var = torch.tensor(arr, dtype=self.dtype, device=device)
+2022-02-11 18:14:51,463 [Epoch: 001 Step: 00000100] Batch Recognition Loss:   5.481679 => Gls Tokens per Sec:     3014 || Batch Translation Loss:  62.376350 => Txt Tokens per Sec:     5792 || Lr: 0.001000
+2022-02-11 18:14:51.531653: I tensorflow/core/platform/cpu_feature_guard.cc:143] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2022-02-11 18:14:51.552994: I tensorflow/core/platform/profile_utils/cpu_utils.cc:102] CPU Frequency: 2199975000 Hz
+2022-02-11 18:14:51.555628: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x561e38b573e0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2022-02-11 18:14:51.555687: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2022-02-11 18:14:51.559058: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-02-11 18:14:51.559116: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1108]      
+2022-02-11 18:15:17,885 Hooray! New best validation result [eval_metric]!
+2022-02-11 18:15:17,886 Saving new checkpoint.
+2022-02-11 18:15:22,373 Validation result at epoch   1, step      100: duration: 30.9088s
+	Recognition Beam Size: 1	Translation Beam Size: 1	Translation Beam Alpha: -1
+	Recognition Loss: 96.15945	Translation Loss: 34353.50000	PPL: 107.87262
+	Eval Metric: BLEU
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 3.70	(BLEU-1: 10.40,	BLEU-2: 5.52,	BLEU-3: 4.32,	BLEU-4: 3.70)
+	CHRF 20.16	ROUGE 11.47
+2022-02-11 18:15:22,374 Logging Recognition and Translation Outputs
+2022-02-11 18:15:22,375 ========================================================================================================================
+2022-02-11 18:15:22,376 Logging Sequence: 10March_2011_Thursday_heute-51
+2022-02-11 18:15:22,377 	Gloss Reference :	SUEDWEST KOMMEN WARM MORGEN SCHON FRANKREICH REGION FUENFZEHN BIS ZWANZIG GRAD WOCHENENDE KOMMEN WARM
+2022-02-11 18:15:22,377 	Gloss Hypothesis:	******** ****** **** ****** ***** ********** ****** ********* *** ******* **** ********** ****** ****
+2022-02-11 18:15:22,379 	Gloss Alignment :	D        D      D    D      D     D          D      D         D   D       D    D          D      D   
+2022-02-11 18:15:22,380 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:22,386 	Text Reference  :	es wird wärmer aus dem südwesten morgen haben wir schon über frankreich die fünfzehn bis zwanzig grad und am  wochenende kommt            diese wärme  langsam  auch zu   uns 
+2022-02-11 18:15:22,386 	Text Hypothesis :	** **** ****** *** *** ********* ****** ***** *** ***** **** ********** *** ******** *** ******* **** und nun die        wettervorhersage für   morgen mittwoch den  teil teil
+2022-02-11 18:15:22,388 	Text Alignment  :	D  D    D      D   D   D         D      D     D   D     D    D          D   D        D   D       D        S   S          S                S     S      S        S    S    S   
+2022-02-11 18:15:22,389 ========================================================================================================================
+2022-02-11 18:15:22,389 Logging Sequence: 28November_2011_Monday_heute-1587
+2022-02-11 18:15:22,391 	Gloss Reference :	AUCH MORGEN WETTER SUPER neg-HABEN FUENF GRAD NORDOST MILD WO SUEDWEST
+2022-02-11 18:15:22,392 	Gloss Hypothesis:	**** ****** ****** ***** ********* ***** **** ******* **** ** ********
+2022-02-11 18:15:22,392 	Gloss Alignment :	D    D      D      D     D         D     D    D       D    D  D       
+2022-02-11 18:15:22,393 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:22,398 	Text Reference  :	morgen gibt es dann keine großen überraschungen fünf grad im  nordosten        am  mildesten wird     es  im   südwesten
+2022-02-11 18:15:22,398 	Text Hypothesis :	****** **** ** **** ***** ****** ************** und  nun  die wettervorhersage für morgen    mittwoch den teil teil     
+2022-02-11 18:15:22,399 	Text Alignment  :	D      D    D  D    D     D      D              S    S    S   S                S   S         S        S   S    S        
+2022-02-11 18:15:22,401 ========================================================================================================================
+2022-02-11 18:15:22,401 Logging Sequence: 07April_2010_Wednesday_heute-1631
+2022-02-11 18:15:22,403 	Gloss Reference :	FREUNDLICH BLEIBEN REGION SUED BISSCHEN SCHAUER
+2022-02-11 18:15:22,405 	Gloss Hypothesis:	********** ******* ****** **** ******** *******
+2022-02-11 18:15:22,406 	Gloss Alignment :	D          D       D      D    D        D      
+2022-02-11 18:15:22,407 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:22,411 	Text Reference  :	dabei das wetter aber nicht unfreundlich höchstens mal im  osten und              auch im     süden    ein paar schauer
+2022-02-11 18:15:22,411 	Text Hypothesis :	***** *** ****** **** ***** ************ ********* und nun die   wettervorhersage für  morgen mittwoch den teil teil   
+2022-02-11 18:15:22,412 	Text Alignment  :	D     D   D      D    D     D            D         S   S   S     S                S    S      S        S   S    S      
+2022-02-11 18:15:22,414 ========================================================================================================================
+2022-02-11 18:15:22,414 Logging Sequence: 01July_2011_Friday_tagesschau-2765
+2022-02-11 18:15:22,415 	Gloss Reference :	HEUTE NACHT DREIZEHN NORD VIER BERG
+2022-02-11 18:15:22,417 	Gloss Hypothesis:	***** ***** ******** **** **** ****
+2022-02-11 18:15:22,417 	Gloss Alignment :	D     D     D        D    D    D   
+2022-02-11 18:15:22,418 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:22,420 	Text Reference  :	heute nacht dreizehn grad an  den küsten           vier grad   an       den **** alpen
+2022-02-11 18:15:22,421 	Text Hypothesis :	***** ***** ******** und  nun die wettervorhersage für  morgen mittwoch den teil teil 
+2022-02-11 18:15:22,422 	Text Alignment  :	D     D     D        S    S   S   S                S    S      S            I    S    
+2022-02-11 18:15:22,423 ========================================================================================================================
+2022-02-11 18:15:22,423 Logging Sequence: 19March_2011_Saturday_tagesschau-4690
+2022-02-11 18:15:22,425 	Gloss Reference :	MORGEN FRUEH VERSCHWINDEN LANGSAM SCHNELL NORDOST BISSCHEN WOLKE BLEIBEN TROCKEN
+2022-02-11 18:15:22,425 	Gloss Hypothesis:	****** ***** ************ ******* ******* ******* ******** ***** ******* *******
+2022-02-11 18:15:22,426 	Gloss Alignment :	D      D     D            D       D       D       D        D     D       D      
+2022-02-11 18:15:22,427 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:22,432 	Text Reference  :	der löst sich morgen mehr oder weniger rasch auf vor allem in der nordosthälfte gibt es  auch noch             einige wolken aber     es  bleibt trocken
+2022-02-11 18:15:22,433 	Text Hypothesis :	*** **** **** ****** **** **** ******* ***** *** *** ***** ** *** ************* und  nun die  wettervorhersage für    morgen mittwoch den teil   teil   
+2022-02-11 18:15:22,434 	Text Alignment  :	D   D    D    D      D    D    D       D     D   D   D     D  D   D             S    S   S    S                S      S      S        S   S      S      
+2022-02-11 18:15:22,435 ========================================================================================================================
+2022-02-11 18:15:31,345 [Epoch: 001 Step: 00000200] Batch Recognition Loss:   5.765265 => Gls Tokens per Sec:     2774 || Batch Translation Loss:  38.869331 => Txt Tokens per Sec:     5333 || Lr: 0.001000
+2022-02-11 18:15:57,738 Validation result at epoch   1, step      200: duration: 26.3924s
+	Recognition Beam Size: 1	Translation Beam Size: 1	Translation Beam Alpha: -1
+	Recognition Loss: 95.09995	Translation Loss: 27865.95117	PPL: 44.56586
+	Eval Metric: BLEU
+	WER 100.00	(DEL: 100.00,	INS: 0.00,	SUB: 0.00)
+	BLEU-4 0.52	(BLEU-1: 13.45,	BLEU-2: 4.57,	BLEU-3: 1.23,	BLEU-4: 0.52)
+	CHRF 19.18	ROUGE 12.00
+2022-02-11 18:15:57,739 Logging Recognition and Translation Outputs
+2022-02-11 18:15:57,740 ========================================================================================================================
+2022-02-11 18:15:57,742 Logging Sequence: 24November_2011_Thursday_heute-222
+2022-02-11 18:15:57,743 	Gloss Reference :	NORD NUR WOLKE FROST SUED
+2022-02-11 18:15:57,744 	Gloss Hypothesis:	**** *** ***** ***** ****
+2022-02-11 18:15:57,745 	Gloss Alignment :	D    D   D     D     D   
+2022-02-11 18:15:57,746 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:57,751 	Text Reference  :	in norddeutschland dagegen nur wolken      und der frost ja den haben wir wieder    in   der      südhälfte
+2022-02-11 18:15:57,751 	Text Hypothesis :	am tag             ist     es  wechselhaft und *** ***** ** *** ***** im  nordosten noch einzelne schauer  
+2022-02-11 18:15:57,752 	Text Alignment  :	S  S               S       S   S               D   D     D  D   D     S   S         S    S        S        
+2022-02-11 18:15:57,753 ========================================================================================================================
+2022-02-11 18:15:57,755 Logging Sequence: 14October_2009_Wednesday_tagesschau-529
+2022-02-11 18:15:57,756 	Gloss Reference :	BESONDERS NORDWEST WIND STARK
+2022-02-11 18:15:57,758 	Gloss Hypothesis:	********* ******** **** *****
+2022-02-11 18:15:57,759 	Gloss Alignment :	D         D        D    D    
+2022-02-11 18:15:57,760 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:57,764 	Text Reference  :	vor allem im nordwesten ist es *********** *** ** ********* **** sehr     windig 
+2022-02-11 18:15:57,764 	Text Hypothesis :	*** ***** am tag        ist es wechselhaft und im nordosten noch einzelne schauer
+2022-02-11 18:15:57,764 	Text Alignment  :	D   D     S  S                 I           I   I  I         I    S        S      
+2022-02-11 18:15:57,766 ========================================================================================================================
+2022-02-11 18:15:57,768 Logging Sequence: 17October_2009_Saturday_tagesschau-2139
+2022-02-11 18:15:57,769 	Gloss Reference :	NEBEL KUEHL
+2022-02-11 18:15:57,770 	Gloss Hypothesis:	***** *****
+2022-02-11 18:15:57,771 	Gloss Alignment :	D     D    
+2022-02-11 18:15:57,773 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:57,776 	Text Reference  :	wo sich nebel hält ist es *********** *** ** ********* **** ******** kälter 
+2022-02-11 18:15:57,777 	Text Hypothesis :	** **** am    tag  ist es wechselhaft und im nordosten noch einzelne schauer
+2022-02-11 18:15:57,777 	Text Alignment  :	D  D    S     S           I           I   I  I         I    I        S      
+2022-02-11 18:15:57,778 ========================================================================================================================
+2022-02-11 18:15:57,779 Logging Sequence: 10August_2011_Wednesday_tagesschau-6303
+2022-02-11 18:15:57,780 	Gloss Reference :	IM-VERLAUF TEMPERATUR REGION
+2022-02-11 18:15:57,782 	Gloss Hypothesis:	********** ********** ******
+2022-02-11 18:15:57,783 	Gloss Alignment :	D          D          D     
+2022-02-11 18:15:57,784 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:57,787 	Text Reference  :	in den nächsten tagen steigen     die temperaturen auch      im   übrigen  land   
+2022-02-11 18:15:57,788 	Text Hypothesis :	am tag ist      es    wechselhaft und im           nordosten noch einzelne schauer
+2022-02-11 18:15:57,790 	Text Alignment  :	S  S   S        S     S           S   S            S         S    S        S      
+2022-02-11 18:15:57,791 ========================================================================================================================
+2022-02-11 18:15:57,792 Logging Sequence: 09April_2010_Friday_tagesschau-7623
+2022-02-11 18:15:57,794 	Gloss Reference :	JETZT WETTER MORGEN SAMSTAG ZEHNTE APRIL WIE-AUSSEHEN ZEIGEN-BILDSCHIRM
+2022-02-11 18:15:57,794 	Gloss Hypothesis:	***** ****** ****** ******* ****** ***** ************ *****************
+2022-02-11 18:15:57,795 	Gloss Alignment :	D     D      D      D       D      D     D            D                
+2022-02-11 18:15:57,796 	--------------------------------------------------------------------------------------------------------------------
+2022-02-11 18:15:57,799 	Text Reference  :	** und nun die wettervorhersage für morgen samstag   den  zehnten  april  
+2022-02-11 18:15:57,799 	Text Hypothesis :	am tag ist es  wechselhaft      und im     nordosten noch einzelne schauer
+2022-02-11 18:15:57,802 	Text Alignment  :	I  S   S   S   S                S   S      S         S    S        S      
+2022-02-11 18:15:57,803 ========================================================================================================================
+2022-02-11 18:15:59,974 Epoch   1: Total Training Recognition Loss 1463.96  Total Training Translation Loss 16028.56 
+2022-02-11 18:15:59,974 EPOCH 2
+2022-02-11 18:16:06,834 [Epoch: 002 Step: 00000300] Batch Recognition Loss:   5.618463 => Gls Tokens per Sec:     2872 || Batch Translation Loss:  43.651665 => Txt Tokens per Sec:     5545 || Lr: 0.001000
