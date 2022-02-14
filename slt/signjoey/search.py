@@ -363,7 +363,7 @@ def beam_search(
         
 
         ################## custumed ##################
-        select_indices = select_indices.to(dtype=int)
+        # select_indices = select_indices.to(dtype=int)
         alive_seq = torch.cat(
             [alive_seq.index_select(0, select_indices), topk_ids.view(-1, 1)], -1
         )  # batch_size*k x hyp_len
@@ -409,7 +409,7 @@ def beam_search(
                 break
             
             ################## custumed ##################
-            non_finished = non_finished.to(dtype=int)
+            # non_finished = non_finished.to(dtype=int)
             
             # remove finished batches for the next step
             topk_log_probs = topk_log_probs.index_select(0, non_finished)
@@ -422,7 +422,7 @@ def beam_search(
         # reorder indices, outputs and masks
         select_indices = batch_index.view(-1)
         ################## custumed ##################
-        select_indices = select_indices.to(dtype=int)
+        # select_indices = select_indices.to(dtype=int)
         encoder_output = encoder_output.index_select(0, select_indices)
         src_mask = src_mask.index_select(0, select_indices)
 
