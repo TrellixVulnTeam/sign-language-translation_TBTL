@@ -105,8 +105,8 @@ def main():
         init_dist(args.launcher, **cfg.dist_params)
         
     model = init_pose_model(cfg, checkpoint=args.checkpoint, device='cuda:0')
-    which_data = 'test'
-    upper_dir = f'/nas1/yjun/slt/PHOENIX-2014-T/features/fullFrame-210x260px/{which_data}/'
+    phase = 'dev'
+    upper_dir = f'/nas1/yjun/slt/PHOENIX-2014-T/features/fullFrame-210x260px/{phase}/'
     lower_dir = sorted(os.listdir(upper_dir))
     
     keypoints_list = pd.read_csv('/nas1/yjun/slt/mmpose/outputs/keypoints.csv')['keypoint'].to_list()
@@ -136,12 +136,12 @@ def main():
                                 custom_filter=vis_idx)
             
             img_keypoint = Image.fromarray(data, 'RGB')
-            os.makedirs(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{which_data}/{dir}/', exist_ok=True)
-            img_keypoint.save(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{which_data}/{dir}/{img}')
+            os.makedirs(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{phase}/{dir}/', exist_ok=True)
+            img_keypoint.save(f'/nas1/yjun/slt/mmpose/outputs/keypoint_img/{phase}/{dir}/{img}')
             ########### visualize what you need, only ###########
         
         df = pd.DataFrame(saving_results, index = img_list, columns=keypoints_list_xy)
-        df.to_csv(f'/nas1/yjun/slt/mmpose/outputs/keypoint_csv/{which_data}/{dir}.csv')
+        df.to_csv(f'/nas1/yjun/slt/mmpose/outputs/keypoint_csv/{phase}/{dir}.csv')
         
 
 if __name__ == '__main__':
