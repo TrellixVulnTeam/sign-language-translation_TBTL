@@ -1,5 +1,4 @@
 # coding: utf-8
-from copyreg import pickle
 import tensorflow as tf
 
 tf.config.set_visible_devices([], "GPU")
@@ -26,14 +25,6 @@ from signjoey.helpers import freeze_params
 from torch import Tensor
 from typing import Union
 
-import pickle as pkl
-
-#### pkl load for tokenization ####
-def pkl_load(phase):
-    pkl_dir = "/nas1/yjun/slt/mmpose/outputs/tokenization_pkl/"
-    with open(pkl_dir + phase + '.pickle', 'rb') as f:
-        object = pkl.load(f)
-    return object      
 
 class SignModel(nn.Module):
     """
@@ -83,18 +74,6 @@ class SignModel(nn.Module):
         self.do_recognition = do_recognition
         self.do_translation = do_translation
 
-        #### pkl load for tokenization ####
-        self.train_token_loaded = False
-        self.dev_token_loaded = False
-        self.test_token_loaded = False
-        self.token_info = []
-        self.max_num_token = 0
-        self.batch_num_token = [] 
-        self.batch_breakpoint = []
-        
-
-      
-
     # pylint: disable=arguments-differ
     def forward(
         self,
@@ -102,7 +81,7 @@ class SignModel(nn.Module):
         sgn_mask: Tensor,
         sgn_lengths: Tensor,
         txt_input: Tensor,
-        txt_mask: Tensor = None
+        txt_mask: Tensor = None,
     ) -> (Tensor, Tensor, Tensor, Tensor):
         """
         First encodes the source sentence.
@@ -135,7 +114,7 @@ class SignModel(nn.Module):
             decoder_outputs = self.decode(
                 encoder_output=encoder_output,
                 encoder_hidden=encoder_hidden,
-                sgn_mask=self.sgn_mask, # 수정
+                sgn_mask=sgn_mask,
                 txt_input=txt_input,
                 unroll_steps=unroll_steps,
                 txt_mask=txt_mask,
@@ -156,19 +135,10 @@ class SignModel(nn.Module):
         :param sgn_length:
         :return: encoder outputs (output, hidden_concat)
         """
-        embed_src, self.sgn_mask=self.sgn_embed(
-            x=sgn, 
-            mask=sgn_mask, 
-            sgn_length=sgn_length, 
-            num_token=self.batch_num_token, 
-            breakpoint=self.batch_breakpoint,
-            max_num_token=self.max_num_token
-        )
-        ############ 수정 할 부분 #####################
         return self.encoder(
-            embed_src=embed_src,
+            embed_src=self.sgn_embed(x=sgn, mask=sgn_mask),
             src_length=sgn_length,
-            mask=self.sgn_mask,
+            mask=sgn_mask,
         )
 
     def decode(
@@ -210,7 +180,6 @@ class SignModel(nn.Module):
         translation_loss_function: nn.Module,
         recognition_loss_weight: float,
         translation_loss_weight: float,
-        phase='train'
     ) -> (Tensor, Tensor):
         """
         Compute non-normalized loss and number of tokens for a batch
@@ -224,34 +193,6 @@ class SignModel(nn.Module):
         :return: translation_loss: sum of losses over non-pad elements in the batch
         """
         # pylint: disable=unused-variable
-        if phase == 'train':
-            print('train')
-            token_loaded = self.train_token_loaded
-        elif phase == 'dev':
-            print('dev')
-            token_loaded = self.dev_token_loaded
-        elif phase == 'test':
-            print('test')
-            token_loaded = self.test_token_loaded
-        if not token_loaded:
-            self.token_info = pkl_load(phase)
-            for t in self.token_info:
-                num_token = t['num_token']
-                if self.max_num_token < num_token:
-                    self.max_num_token = int(num_token)
-
-        
-        self.batch_num_token = []
-        self.batch_breakpoint = []
-
-        for b_s in batch.sequence:     
-            for s in self.token_info:            
-                if phase + '/' + s['name'] == b_s:
-                    self.batch_num_token.append(s['num_token'])
-                    self.batch_breakpoint.append(s['breakpoint'])
-        
-                   
-
 
         # Do a forward pass
         decoder_outputs, gloss_probabilities = self.forward(
@@ -259,30 +200,21 @@ class SignModel(nn.Module):
             sgn_mask=batch.sgn_mask,
             sgn_lengths=batch.sgn_lengths,
             txt_input=batch.txt_input,
-            txt_mask=batch.txt_mask
+            txt_mask=batch.txt_mask,
         )
-        
+
         if self.do_recognition:
             assert gloss_probabilities is not None
-            try:
-                # Calculate Recognition Loss
-                recognition_loss = (
-                    recognition_loss_function(
-                        gloss_probabilities, # input
-                        batch.gls, # target
-                        batch.sgn_lengths.long(), # input_length
-                        batch.gls_lengths.long(), # target_length
-                    )
-                    * recognition_loss_weight
+            # Calculate Recognition Loss
+            recognition_loss = (
+                recognition_loss_function(
+                    gloss_probabilities,
+                    batch.gls,
+                    batch.sgn_lengths.long(),
+                    batch.gls_lengths.long(),
                 )
-            except:
-                print('#'*30, 'error', '#'*30)
-                print(gloss_probabilities.shape)
-                print(batch.gls.shape)
-                print(batch.sgn_lengths.long().shape)
-                print(batch.gls_lengths.long().shape)
-                print(recognition_loss_weight)
-                print(recognition_loss_function(gloss_probabilities,batch.gls,batch.sgn_lengths.long(),batch.gls_lengths.long()))
+                * recognition_loss_weight
+            )
         else:
             recognition_loss = None
 
@@ -368,7 +300,7 @@ class SignModel(nn.Module):
                 stacked_txt_output, stacked_attention_scores = greedy(
                     encoder_hidden=encoder_hidden,
                     encoder_output=encoder_output,
-                    src_mask=self.sgn_mask,
+                    src_mask=batch.sgn_mask,
                     embed=self.txt_embed,
                     bos_index=self.txt_bos_index,
                     eos_index=self.txt_eos_index,
@@ -381,7 +313,7 @@ class SignModel(nn.Module):
                     size=translation_beam_size,
                     encoder_hidden=encoder_hidden,
                     encoder_output=encoder_output,
-                    src_mask=self.sgn_mask,
+                    src_mask=batch.sgn_mask,
                     embed=self.txt_embed,
                     max_output_length=translation_max_output_length,
                     alpha=translation_beam_alpha,
@@ -436,31 +368,13 @@ def build_model(
     :param do_recognition: flag to build the model with recognition output.
     :param do_translation: flag to build the model with translation decoder.
     """
-    # To get input size of action-tokenization-layer and padding size
-    max_token_len = 0
-    sum_token_len = 0
-    count_token = 0
-    for phase in ['train', 'dev']:
-        token_info = pkl_load(phase)
-        for t in token_info:
-            tmp = t['breakpoint']
-            for i in range(len(tmp)-1):
-                token_len = tmp[i+1]-tmp[i]
-                sum_token_len += token_len
-                count_token += 1
-                if max_token_len < token_len:
-                    max_token_len = int(token_len)
-    # mean_token_len = int(sum_token_len / count_token)
-    mean_token_len = int(sum_token_len / count_token * 1.5)
-        
+
     txt_padding_idx = txt_vocab.stoi[PAD_TOKEN]
 
     sgn_embed: SpatialEmbeddings = SpatialEmbeddings(
         **cfg["encoder"]["embeddings"],
         num_heads=cfg["encoder"]["num_heads"],
         input_size=sgn_dim,
-        max_token_len=max_token_len,
-        mean_token_len=mean_token_len
     )
 
     # build encoder

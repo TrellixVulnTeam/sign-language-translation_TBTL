@@ -52,7 +52,6 @@ def validate_on_data(
     batch_type: str = "sentence",
     dataset_version: str = "phoenix_2014_trans",
     frame_subsampling_ratio: int = None,
-    phase: str = 'dev'
 ) -> (
     float,
     float,
@@ -149,7 +148,6 @@ def validate_on_data(
                 translation_loss_weight=translation_loss_weight
                 if do_translation
                 else None,
-                phase=phase
             )
             if do_recognition:
                 total_recognition_loss += batch_recognition_loss
@@ -423,7 +421,6 @@ def test(
                 translation_beam_size=1 if do_translation else None,
                 translation_beam_alpha=-1 if do_translation else None,
                 frame_subsampling_ratio=frame_subsampling_ratio,
-                phase='dev'
             )
             logger.info("finished in %.4fs ", time.time() - valid_start_time)
             if dev_recognition_results[rbw]["valid_scores"]["wer"] < dev_best_wer_score:
@@ -483,7 +480,6 @@ def test(
                     translation_beam_size=tbw,
                     translation_beam_alpha=ta,
                     frame_subsampling_ratio=frame_subsampling_ratio,
-                    phase='dev'
                 )
 
                 if (
@@ -591,7 +587,6 @@ def test(
         else None,
         translation_beam_alpha=dev_best_translation_alpha if do_translation else None,
         frame_subsampling_ratio=frame_subsampling_ratio,
-        phase='test'
     )
 
     logger.info(

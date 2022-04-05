@@ -5,9 +5,9 @@ data:
     sgn: sign
     txt: text
     gls: gloss
-    train: PHOENIX2014T/phoenix14t.pami0.train
-    dev: PHOENIX2014T/phoenix14t.pami0.dev
-    test: PHOENIX2014T/phoenix14t.pami0.test
+    train: 2DCNN_real_alex/train.pkl
+    dev: 2DCNN_real_alex/dev.pkl
+    test: 2DCNN_real_alex/test.pkl
     feature_size: 1024
     level: word
     txt_lowercase: true
@@ -50,7 +50,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./sign_model4"
+    model_dir: "./sign_sample_model6"
     recognition_loss_weight: 1.0
     translation_loss_weight: 1.0
     eval_metric: bleu

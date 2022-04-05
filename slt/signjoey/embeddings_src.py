@@ -97,7 +97,6 @@ class Embeddings(nn.Module):
         """
         Create new embeddings for the vocabulary.
         Use scaling for the Transformer.
-
         :param embedding_dim:
         :param scale:
         :param vocab_size:
@@ -134,7 +133,6 @@ class Embeddings(nn.Module):
     def forward(self, x: Tensor, mask: Tensor = None) -> Tensor:
         """
         Perform lookup for input `x` in the embedding table.
-
         :param mask: token masks
         :param x: index in the vocabulary
         :return: embedded representation for `x`
@@ -184,7 +182,6 @@ class SpatialEmbeddings(nn.Module):
         """
         Create new embeddings for the vocabulary.
         Use scaling for the Transformer.
-
         :param embedding_dim:
         :param input_size:
         :param freeze: freeze the embeddings during training

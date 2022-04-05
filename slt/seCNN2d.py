@@ -1,6 +1,8 @@
+from pyexpat import model
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
+from alexnet_custom import alexnet
 
 import PIL
 import glob
@@ -11,7 +13,7 @@ import time
 import numpy as np
 
 
-class SpatialEmbedding(object):
+class SpatialEmbedding():
     def __init__(self, model_name, num_classes, feature_extract=True, use_pretrained=True):
         """Create the graph of the Spatial Embedding model.
 
@@ -45,11 +47,12 @@ class SpatialEmbedding(object):
         elif self.model_name == "alexnet":
             """ Alexnet
             """
-            model_ft = models.alexnet(pretrained=self.use_pretrained)
+            # model_ft = models.alexnet(pretrained=self.use_pretrained)
+            model_ft = alexnet(pretrained=self.use_pretrained)
             self.set_parameter_requires_grad(model_ft, self.feature_extract)
             num_ftrs = model_ft.classifier[6].in_features
             model_ft.classifier[6] = nn.Linear(num_ftrs,self.num_classes)
-            input_size = 227
+            input_size = (227, 227)
 
         elif self.model_name == "vgg":
             """ VGG11_bn
@@ -95,7 +98,11 @@ class SpatialEmbedding(object):
         else:
             print("Invalid model name, exiting...")
             exit()
-
+        print('parameter tensor')
+        for param_tensor in model_ft.state_dict():
+            print(param_tensor, "\t", model_ft.state_dict()[param_tensor].size())
+        # print(model_ft.state_dict()['features.0.weight'])
+        print('-'*100, '\n', '\n')
         return model_ft, input_size
     
     def set_parameter_requires_grad(self, model, feature_extracting):
@@ -118,7 +125,7 @@ def extractor(model_name, num_classes, phase='train', gpu=0, feature_extract=Tru
     #                         transforms.ToTensor(),
     #                         transforms.Normalize((0.5,0.5,0.5), (0.5,0.5,0.5))])    
     # Print the model we just instantiated
-    print(model_ft)
+    print('model print: ', model_ft, '\n', '-'*100, '\n', '\n')
     
     # 나중에 parser로 받을 부분
     phase = phase
@@ -161,5 +168,5 @@ def extractor(model_name, num_classes, phase='train', gpu=0, feature_extract=Tru
     return dataset
 
 if __name__ == "__main__":
-    for p in ['train', 'dev', 'test']:
+    for p in ['train','dev', 'test']:
         extractor('alexnet', 1024, phase=p)

@@ -118,7 +118,6 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     train_data = SignTranslationDataset(
         path=train_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
-        phase='train',
         filter_pred=lambda x: len(vars(x)["sgn"]) <= max_sent_length
         and len(vars(x)["txt"]) <= max_sent_length,
     )
@@ -158,7 +157,6 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     dev_data = SignTranslationDataset(
         path=dev_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
-        phase='dev',
     )
     random_dev_subset = data_cfg.get("random_dev_subset", -1)
     if random_dev_subset > -1:
@@ -173,7 +171,6 @@ def load_data(data_cfg: dict) -> (Dataset, Dataset, Dataset, Vocabulary, Vocabul
     test_data = SignTranslationDataset(
         path=test_paths,
         fields=(sequence_field, signer_field, sgn_field, gls_field, txt_field),
-        phase='test',
     )
 
     gls_field.vocab = gls_vocab

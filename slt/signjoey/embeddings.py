@@ -179,6 +179,8 @@ class SpatialEmbeddings(nn.Module):
         activation_type: str = None,
         scale: bool = False,
         scale_factor: float = None,
+        max_token_len: int = 0,
+        mean_token_len: int = 0,
         **kwargs
     ):
         """
@@ -190,6 +192,10 @@ class SpatialEmbeddings(nn.Module):
         :param freeze: freeze the embeddings during training
         """
         super().__init__()
+        self.max_token_len = max_token_len
+        self.mean_token_len = mean_token_len
+        # self.token_layer = None
+        self.token_layer = nn.Linear(max_token_len, mean_token_len)
 
         self.embedding_dim = embedding_dim
         self.input_size = input_size
@@ -216,14 +222,42 @@ class SpatialEmbeddings(nn.Module):
             freeze_params(self)
 
     # pylint: disable=arguments-differ
-    def forward(self, x: Tensor, mask: Tensor) -> Tensor:
+    def forward(
+        self, 
+        x: Tensor, 
+        mask: Tensor,
+        sgn_length: Tensor = None, 
+        num_token: list = None, 
+        breakpoint: list = None,
+        max_num_token: int = 0,
+    ) -> Tensor:
         """
         :param mask: frame masks
         :param x: input frame features
         :return: embedded representation for `x`
         """
+        batch_size = x.shape[0]
+        x_tkn = torch.zeros((batch_size, self.mean_token_len*max_num_token, self.input_size), device=torch.device('cuda'))
 
-        x = self.ln(x)
+        for i in range(batch_size):
+            # if len(num_token) <= i:
+            #     print('batch: ', i, '/', batch_size)
+            #     print('len_num_token: ', len(num_token))
+            #     continue
+            for n in range(num_token[i]):
+                breakpoint_i = breakpoint[i]
+                action_token = x[i,breakpoint_i[n]:breakpoint_i[n+1],:]
+                padding_size = (0, 0, 0, self.max_token_len - len(action_token))
+                padded_token = F.pad(action_token, padding_size, "constant", 0)
+                padded_token = padded_token.transpose(0,1)
+                padded_token = padded_token.cuda()
+                tmp = self.token_layer(padded_token)
+                tmp = tmp.transpose(0,1)
+                x_tkn[i,n*self.mean_token_len:(n+1)*self.mean_token_len,:] = tmp
+        x_tkn = x_tkn.to("cuda")
+        
+        x = self.ln(x_tkn)
+        mask = (x_tkn != torch.zeros(self.input_size, device=torch.device('cuda')))[..., 0].unsqueeze(1)
 
         if self.norm_type:
             x = self.norm(x, mask)
@@ -232,9 +266,9 @@ class SpatialEmbeddings(nn.Module):
             x = self.activation(x)
 
         if self.scale:
-            return x * self.scale_factor
+            return x * self.scale_factor, mask
         else:
-            return x
+            return x, mask
 
     def __repr__(self):
         return "%s(embedding_dim=%d, input_size=%d)" % (

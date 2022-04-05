@@ -1,6 +1,8 @@
+from pyexpat import model
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
+from alexnet_custom import alexnet
 
 import PIL
 import glob
@@ -11,63 +13,7 @@ import time
 import numpy as np
 
 
-class AlexNet(nn.Module):
-  def __init__(self, num_classes=1024):
-    super().__init__()
-    ##### CNN layers 
-    self.net = nn.Sequential(
-        # conv1
-        nn.Conv2d(in_channels=3, out_channels=96, kernel_size=11, stride=4),
-        nn.ReLU(inplace=True),  # non-saturating function
-        nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),  # 논문의 LRN 파라미터 그대로 지정
-        nn.MaxPool2d(kernel_size=3, stride=2),
-        # conv2
-        nn.Conv2d(96, 256, kernel_size=5, padding=2), 
-        nn.ReLU(inplace=True),
-        nn.LocalResponseNorm(size=5, alpha=0.0001, beta=0.75, k=2),
-        nn.MaxPool2d(kernel_size=3, stride=2),
-        # conv3
-        nn.Conv2d(256, 384, 3, padding=1),
-        nn.ReLU(inplace=True),
-        # conv4
-        nn.Conv2d(384, 384, 3, padding=1),
-        nn.ReLU(inplace=True),
-        # conv5
-        nn.Conv2d(384, 256, 3, padding=1),
-        nn.ReLU(inplace=True),
-        nn.MaxPool2d(kernel_size=3, stride=2),
-
-    )
-
-    ##### FC layers
-    self.classifier = nn.Sequential(
-        # fc1
-        nn.Dropout(p=0.5, inplace=True),
-        nn.Linear(in_features=(256 * 6 * 6), out_features=4096),
-        nn.ReLU(inplace=True).
-        # fc2
-        nn.Dropout(p=0.5, inplace=True),
-        nn.Linear(4096, 4096),
-        nn.ReLU(inplace=True),
-        nn.Linear(4096, num_classes),
-    )
-    # bias, weight 초기화 
-    def init_bias_weights(self):
-      for layer in self.net:
-        if isinstance(layer, nn.Conv2d):
-          nn.init.normal_(layer.weight, mean=0, std=0.01)   # weight 초기화
-          nn.init.constant_(layer.bias, 0)   # bias 초기화
-      # conv 2, 4, 5는 bias 1로 초기화 
-      nn.init.constant_(self.net[4].bias, 1)
-      nn.init.constant_(self.net[10].bias, 1)
-      nn.init.constant_(self.net[12].bias, 1)
-    # modeling 
-    def forward(self, x):
-      x = self.net(x)   # conv
-      x = x.view(-1, 256*6*6)   # keras의 reshape (텐서 크기 2d 변경)
-      return self.classifier(x)   # fc   
-
-class SpatialEmbedding(object):
+class SpatialEmbedding():
     def __init__(self, model_name, num_classes, feature_extract=True, use_pretrained=True):
         """Create the graph of the Spatial Embedding model.
 
@@ -89,13 +35,22 @@ class SpatialEmbedding(object):
         model_ft = None
         input_size = 0
 
- 
-        model_ft = models.alexnet(pretrained=self.use_pretrained)
-        self.set_parameter_requires_grad(model_ft, self.feature_extract)
-        num_ftrs = model_ft.classifier[6].in_features
-        model_ft.classifier[6] = nn.Linear(num_ftrs,self.num_classes)
-        input_size = 227
-
+        if self.model_name == "alexnet":
+            """ Alexnet
+            """
+            # model_ft = models.alexnet(pretrained=self.use_pretrained)
+            model_ft = alexnet(num_classes=self.num_classes, pretrained=self.use_pretrained)
+            self.set_parameter_requires_grad(model_ft, self.feature_extract)
+            input_size = (227, 227)
+        else:
+            print("Invalid model name, exiting...")
+            exit()
+        
+        print('parameter tensor')
+        for param_tensor in model_ft.state_dict():
+            print(param_tensor, "\t", model_ft.state_dict()[param_tensor].size())
+        # print(model_ft.state_dict()['features.0.weight'])
+        print('-'*100, '\n', '\n')
         return model_ft, input_size
     
     def set_parameter_requires_grad(self, model, feature_extracting):
@@ -118,7 +73,7 @@ def extractor(model_name, num_classes, phase='train', gpu=0, feature_extract=Tru
     #                         transforms.ToTensor(),
     #                         transforms.Normalize((0.5,0.5,0.5), (0.5,0.5,0.5))])    
     # Print the model we just instantiated
-    print(model_ft)
+    print('model print: ', model_ft, '\n', '-'*100, '\n', '\n')
     
     # 나중에 parser로 받을 부분
     phase = phase
@@ -161,5 +116,5 @@ def extractor(model_name, num_classes, phase='train', gpu=0, feature_extract=Tru
     return dataset
 
 if __name__ == "__main__":
-    for p in ['train', 'dev', 'test']:
+    for p in ['train','dev', 'test']:
         extractor('alexnet', 1024, phase=p)

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from cmath import phase
 import torch
 
 torch.backends.cudnn.deterministic = True
@@ -501,7 +500,6 @@ class TrainManager:
                         if self.do_translation
                         else None,
                         frame_subsampling_ratio=self.frame_subsampling_ratio,
-                        phase='dev'
                     )
                     self.model.train()
 
@@ -753,7 +751,6 @@ class TrainManager:
             translation_loss_weight=self.translation_loss_weight
             if self.do_translation
             else None,
-            phase='train'
         )
 
         # normalize translation loss

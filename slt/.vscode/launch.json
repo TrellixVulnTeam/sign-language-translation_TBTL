@@ -11,7 +11,8 @@
             "request": "launch",
             "program": "/nas1/yjun/slt/slt/signjoey/__main__.py",
             "console": "integratedTerminal",
-            "args": ["train", "configs/sign2DCNN.yaml"]
+            "env": {"CUDA_VISIBLE_DEVICES": "1"},
+            "args": ["train", "configs/sign.yaml"]
         }
     ]
 }
