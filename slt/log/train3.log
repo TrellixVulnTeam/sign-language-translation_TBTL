@@ -3310,3 +3310,10 @@ coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.73GiB deviceMemoryBandwid
 2022-04-05 20:44:05,977 finished in 207.0375s 
 2022-04-05 20:44:05,978 ------------------------------------------------------------
 2022-04-05 20:44:05,978 [DEV] partition [RECOGNITION] experiment [BW]: 10
+2022-04-05 20:47:53,791 finished in 227.8130s 
+2022-04-05 20:47:53,792 ============================================================
+2022-04-05 20:48:39,248 [DEV] partition [Translation] results:
+	New Best Translation Beam Size: 1 and Alpha: -1
+	BLEU-4 18.19	(BLEU-1: 43.79,	BLEU-2: 30.23,	BLEU-3: 22.82,	BLEU-4: 18.19)
+	CHRF 41.26	ROUGE 43.85
+2022-04-05 20:48:39,249 ------------------------------------------------------------

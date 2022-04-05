@@ -2348,3 +2348,57 @@ coreClock: 1.545GHz coreCount: 68 deviceMemorySize: 10.73GiB deviceMemoryBandwid
 2022-04-05 20:47:10,620 Epoch  18: Total Training Recognition Loss 359.39  Total Training Translation Loss 3511.87 
 2022-04-05 20:47:10,622 EPOCH 19
 2022-04-05 20:47:12,268 [Epoch: 019 Step: 00004000] Batch Recognition Loss:   1.186121 => Gls Tokens per Sec:      412 || Batch Translation Loss:   8.730805 => Txt Tokens per Sec:      902 || Lr: 0.001000
+2022-04-05 20:49:00,507 Validation result at epoch  19, step     4000: duration: 108.2378s
+	Recognition Beam Size: 1	Translation Beam Size: 1	Translation Beam Alpha: -1
+	Recognition Loss: 33.96581	Translation Loss: 21371.12305	PPL: 15.17523
+	Eval Metric: BLEU
+	WER 44.12	(DEL: 33.25,	INS: 2.43,	SUB: 8.43)
+	BLEU-4 17.32	(BLEU-1: 42.27,	BLEU-2: 29.02,	BLEU-3: 21.78,	BLEU-4: 17.32)
+	CHRF 40.36	ROUGE 42.61
+2022-04-05 20:49:00,509 Logging Recognition and Translation Outputs
+2022-04-05 20:49:00,509 ========================================================================================================================
+2022-04-05 20:49:00,510 Logging Sequence: dev/15September_2010_Wednesday_heute-2476
+2022-04-05 20:49:00,510 	Gloss Reference :	IM-VERLAUF FRUEH HERBST
+2022-04-05 20:49:00,511 	Gloss Hypothesis:	IM-VERLAUF ***** ******
+2022-04-05 20:49:00,512 	Gloss Alignment :	           D     D     
+2022-04-05 20:49:00,512 	--------------------------------------------------------------------------------------------------------------------
+2022-04-05 20:49:00,515 	Text Reference  :	also der herbst   geht sozusagen weiter der     frühherbst  .
+2022-04-05 20:49:00,516 	Text Hypothesis :	**** die nächsten tage werden    dann   richtig ungemütlich .
+2022-04-05 20:49:00,516 	Text Alignment  :	D    S   S        S    S         S      S       S            
+2022-04-05 20:49:00,518 ========================================================================================================================
+2022-04-05 20:49:00,521 Logging Sequence: dev/05February_2010_Friday_tagesschau-2920
+2022-04-05 20:49:00,523 	Gloss Reference :	IX PLUS SECHS GRAD VOR POMMERN REGION BISSCHEN FROST
+2022-04-05 20:49:00,524 	Gloss Hypothesis:	** PLUS SECHS GRAD *** ******* WEST   WIND     FROST
+2022-04-05 20:49:00,524 	Gloss Alignment :	D                  D   D       S      S             
+2022-04-05 20:49:00,525 	--------------------------------------------------------------------------------------------------------------------
+2022-04-05 20:49:00,530 	Text Reference  :	** ********* dort   morgen bis plus sechs grad in vorpommern gibt    es   leichten frost .
+2022-04-05 20:49:00,530 	Text Hypothesis :	im äußersten westen morgen bis **** sechs grad ** im         übrigen land leichter frost .
+2022-04-05 20:49:00,531 	Text Alignment  :	I  I         S                 D               D  S          S       S    S               
+2022-04-05 20:49:00,532 ========================================================================================================================
+2022-04-05 20:49:00,532 Logging Sequence: dev/26August_2009_Wednesday_tagesschau-3225
+2022-04-05 20:49:00,535 	Gloss Reference :	FREITAG SUEDOST SONNE FREITAG DANN MEHR WOLKE  REGEN KOENNEN
+2022-04-05 20:49:00,536 	Gloss Hypothesis:	FREITAG SUEDOST SONNE FREITAG **** **** KOMMEN REGEN KOENNEN
+2022-04-05 20:49:00,537 	Gloss Alignment :	                              D    D    S                   
+2022-04-05 20:49:00,538 	--------------------------------------------------------------------------------------------------------------------
+2022-04-05 20:49:00,547 	Text Reference  :	am freitag *** ** in der südosthälfte zum teil    noch freundlich ** während sich   die wolken von nordwesten verdichten und ************ gebietsweise regen bringen .
+2022-04-05 20:49:00,547 	Text Hypothesis :	am freitag ist es in der südosthälfte *** längere zeit freundlich am freitag liegen die wolken *** ********** dichter    und stellenweise regnet       es    etwas   .
+2022-04-05 20:49:00,549 	Text Alignment  :	           I   I                      D   S       S               I  S       S                 D   D          S              I            S            S     S        
+2022-04-05 20:49:00,550 ========================================================================================================================
+2022-04-05 20:49:00,551 Logging Sequence: dev/24December_2010_Friday_tagesschau-5128
+2022-04-05 20:49:00,552 	Gloss Reference :	MEHR SCHNEE SCHNEIEN MOEGLICH SCHNEIEN AUCH MOEGLICH
+2022-04-05 20:49:00,552 	Gloss Hypothesis:	MEHR SCHNEE ******** ******** REGEN    AUCH ********
+2022-04-05 20:49:00,552 	Gloss Alignment :	            D        D        S             D       
+2022-04-05 20:49:00,552 	--------------------------------------------------------------------------------------------------------------------
+2022-04-05 20:49:00,555 	Text Reference  :	dabei muss heute nacht verbreitet mit    teilweise ergiebigen schneefällen gerechnet werden   .
+2022-04-05 20:49:00,556 	Text Hypothesis :	***** **** es    gibt  immer      wieder teilweise kräftige   schauer      und       gewitter .
+2022-04-05 20:49:00,556 	Text Alignment  :	D     D    S     S     S          S                S          S            S         S         
+2022-04-05 20:49:00,557 ========================================================================================================================
+2022-04-05 20:49:00,557 Logging Sequence: dev/12December_2011_Monday_heute-5806
+2022-04-05 20:49:00,559 	Gloss Reference :	UND DAZU STURM NORD KUESTE STURM
+2022-04-05 20:49:00,559 	Gloss Hypothesis:	*** DAZU STURM NORD KUESTE STURM
+2022-04-05 20:49:00,559 	Gloss Alignment :	D                               
+2022-04-05 20:49:00,560 	--------------------------------------------------------------------------------------------------------------------
+2022-04-05 20:49:00,564 	Text Reference  :	und wir  haben erste schwere sturmböen an der nordsee aus dem         süden .
+2022-04-05 20:49:00,564 	Text Hypothesis :	*** dazu haben wir   einen   starken   an den küsten  mit stürmischen böen  .
+2022-04-05 20:49:00,565 	Text Alignment  :	D   S          S     S       S            S   S       S   S           S      
+2022-04-05 20:49:00,565 ========================================================================================================================
