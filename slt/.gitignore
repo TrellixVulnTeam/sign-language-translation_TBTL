@@ -14,3 +14,9 @@ sign_sample_model/
 sign_model*/
 
 /sign_model*
+
+/saved_model
+
+/experiment_results
+
+/log

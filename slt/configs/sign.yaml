@@ -50,15 +50,15 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./sign_model12"
+    model_dir: "./saved_model/sign_model19"
     recognition_loss_weight: 1.0
     translation_loss_weight: 1.0
     eval_metric: bleu
     optimizer: adam
     learning_rate: 0.001
-    batch_size: 32
+    batch_size: 48
     num_valid_log: 5
-    epochs: 8000000
+    epochs: 5000000
     early_stopping_metric: eval_metric
     batch_type: sentence
     translation_normalization: batch
@@ -78,7 +78,7 @@ training:
     - 0.998
     scheduling: plateau
     learning_rate_min: 1.0e-07
-    weight_decay: 0.001
+    weight_decay: 0.004
     patience: 8
     decrease_factor: 0.7
     label_smoothing: 0.0
@@ -96,12 +96,12 @@ model:
         embeddings:
             embedding_dim: 512
             scale: false
-            dropout: 0.1
+            dropout: 0.2
             norm_type: batch
             activation_type: softsign
         hidden_size: 512
         ff_size: 2048
-        dropout: 0.1
+        dropout: 0.2
     decoder:
         type: transformer
         num_layers: 3
@@ -109,9 +109,9 @@ model:
         embeddings:
             embedding_dim: 512
             scale: false
-            dropout: 0.1
+            dropout: 0.2
             norm_type: batch
             activation_type: softsign
         hidden_size: 512
         ff_size: 2048
-        dropout: 0.1
+        dropout: 0.2
