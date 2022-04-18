@@ -240,10 +240,6 @@ class SpatialEmbeddings(nn.Module):
         x_tkn = torch.zeros((batch_size, self.mean_token_len*max_num_token, self.input_size), device=torch.device('cuda'))
 
         for i in range(batch_size):
-            # if len(num_token) <= i:
-            #     print('batch: ', i, '/', batch_size)
-            #     print('len_num_token: ', len(num_token))
-            #     continue
             for n in range(num_token[i]):
                 breakpoint_i = breakpoint[i]
                 action_token = x[i,breakpoint_i[n]:breakpoint_i[n+1],:]

@@ -225,13 +225,10 @@ class SignModel(nn.Module):
         """
         # pylint: disable=unused-variable
         if phase == 'train':
-            print('train')
             token_loaded = self.train_token_loaded
         elif phase == 'dev':
-            print('dev')
             token_loaded = self.dev_token_loaded
         elif phase == 'test':
-            print('test')
             token_loaded = self.test_token_loaded
         if not token_loaded:
             self.token_info = pkl_load(phase)
@@ -264,25 +261,16 @@ class SignModel(nn.Module):
         
         if self.do_recognition:
             assert gloss_probabilities is not None
-            try:
-                # Calculate Recognition Loss
-                recognition_loss = (
-                    recognition_loss_function(
-                        gloss_probabilities, # input
-                        batch.gls, # target
-                        batch.sgn_lengths.long(), # input_length
-                        batch.gls_lengths.long(), # target_length
-                    )
-                    * recognition_loss_weight
+            # Calculate Recognition Loss
+            recognition_loss = (
+                recognition_loss_function(
+                    gloss_probabilities, # input
+                    batch.gls, # target
+                    batch.sgn_lengths.long(), # input_length
+                    batch.gls_lengths.long(), # target_length
                 )
-            except:
-                print('#'*30, 'error', '#'*30)
-                print(gloss_probabilities.shape)
-                print(batch.gls.shape)
-                print(batch.sgn_lengths.long().shape)
-                print(batch.gls_lengths.long().shape)
-                print(recognition_loss_weight)
-                print(recognition_loss_function(gloss_probabilities,batch.gls,batch.sgn_lengths.long(),batch.gls_lengths.long()))
+                * recognition_loss_weight
+            )
         else:
             recognition_loss = None
 
