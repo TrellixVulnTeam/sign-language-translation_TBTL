@@ -109,7 +109,9 @@ class TrainManager:
         self.early_stopping_metric = train_config.get(
             "early_stopping_metric", "eval_metric"
         )
-
+        self.early_stopping_patience = train_config.get(
+            "early_stopping_patience", 0
+        )
         # if we schedule after BLEU/chrf, we want to maximize it, else minimize
         # early_stopping_metric decides on how to find the early stopping point:
         # ckpts are written when there's a new high/low score for this metric
@@ -583,7 +585,9 @@ class TrainManager:
 
                         if prev_lr != now_lr:
                             if self.last_best_lr != prev_lr:
-                                self.stop = True
+                                self.early_stopping_patience -= 1
+                                if self.early_stopping_patience < 1:
+                                    self.stop = True
 
                     # append to validation report
                     self._add_report(
