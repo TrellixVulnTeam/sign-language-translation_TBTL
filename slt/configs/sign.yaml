@@ -11,7 +11,7 @@ data:
     feature_size: 1024
     level: word
     txt_lowercase: true
-    max_sent_length: 400
+    max_sent_length: 475  # 400
     random_train_subset: -1
     random_dev_subset: -1
 testing:
@@ -50,7 +50,7 @@ training:
     reset_scheduler: false
     reset_optimizer: false
     random_seed: 42
-    model_dir: "./saved_model/sign_model25"
+    model_dir: "./saved_model/sign_model68"
     recognition_loss_weight: 1.0
     translation_loss_weight: 1.0
     eval_metric: bleu
@@ -60,7 +60,6 @@ training:
     num_valid_log: 5
     epochs: 5000000
     early_stopping_metric: eval_metric
-    early_stopping_patience: 60
     batch_type: sentence
     translation_normalization: batch
     eval_recognition_beam_size: 1
@@ -69,7 +68,7 @@ training:
     overwrite: true
     shuffle: true
     use_cuda: true
-    translation_max_output_length: 30
+    translation_max_output_length: 52  # 30
     keep_last_ckpts: 1
     batch_multiplier: 1
     logging_freq: 100

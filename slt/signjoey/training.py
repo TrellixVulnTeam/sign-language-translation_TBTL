@@ -309,9 +309,12 @@ class TrainManager:
                                 stored in the checkpoint.
         """
         model_checkpoint = load_checkpoint(path=path, use_cuda=self.use_cuda)
-
+        # remove output layer for loading pretrained weight
+        model_checkpoint['model_state']['decoder.output_layer.weight_previous'] = model_checkpoint['model_state']['decoder.output_layer.weight']
+        del model_checkpoint['model_state']['decoder.output_layer.weight']
+        
         # restore model and optimizer parameters
-        self.model.load_state_dict(model_checkpoint["model_state"])
+        self.model.load_state_dict(model_checkpoint["model_state"], strict=False)
 
         if not reset_optimizer:
             self.optimizer.load_state_dict(model_checkpoint["optimizer_state"])
@@ -329,8 +332,9 @@ class TrainManager:
 
         # restore counts
         self.steps = model_checkpoint["steps"]
-        self.total_txt_tokens = model_checkpoint["total_txt_tokens"]
-        self.total_gls_tokens = model_checkpoint["total_gls_tokens"]
+        # make it commented for loading pretrained weight
+        # self.total_txt_tokens = model_checkpoint["total_txt_tokens"]
+        # self.total_gls_tokens = model_checkpoint["total_gls_tokens"]
 
         if not reset_best_ckpt:
             self.best_ckpt_score = model_checkpoint["best_ckpt_score"]

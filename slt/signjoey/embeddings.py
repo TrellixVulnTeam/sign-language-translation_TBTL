@@ -192,11 +192,13 @@ class SpatialEmbeddings(nn.Module):
         :param freeze: freeze the embeddings during training
         """
         super().__init__()
-        self.max_token_len = max_token_len
-        self.mean_token_len = mean_token_len
-        # self.token_layer = None
-        self.token_layer = nn.Linear(max_token_len, mean_token_len)
-
+        self.max_token_len = max_token_len      # 63
+        self.mean_token_len = mean_token_len    # 17
+        # self.token_layer = nn.Linear(self.max_token_len, self.mean_token_len)
+        self.token_layer = nn.Linear(self.max_token_len, 32)
+        self.token_layer2 = nn.Linear(32, 16)
+        self.token_layer3 = nn.Linear(16, 1)
+        self.relu = nn.ReLU()
         self.embedding_dim = embedding_dim
         self.input_size = input_size
         self.ln = nn.Linear(self.input_size, self.embedding_dim)
@@ -237,19 +239,23 @@ class SpatialEmbeddings(nn.Module):
         :return: embedded representation for `x`
         """
         batch_size = x.shape[0]
-        x_tkn = torch.zeros((batch_size, self.mean_token_len*max_num_token, self.input_size), device=torch.device('cuda'))
+        x_tkn = torch.zeros((batch_size, self.max_token_len*max_num_token, self.input_size), device=torch.device('cuda')) # (32,578,1024)
 
         for i in range(batch_size):
             for n in range(num_token[i]):
                 breakpoint_i = breakpoint[i]
                 action_token = x[i,breakpoint_i[n]:breakpoint_i[n+1],:]
                 padding_size = (0, 0, 0, self.max_token_len - len(action_token))
-                padded_token = F.pad(action_token, padding_size, "constant", 0)
-                padded_token = padded_token.transpose(0,1)
+                padded_token = F.pad(action_token, padding_size, "constant", 0)     # shape: (63,1024)
+                padded_token = padded_token.transpose(0,1)                          # shape: (1024,63)
                 padded_token = padded_token.cuda()
-                tmp = self.token_layer(padded_token)
-                tmp = tmp.transpose(0,1)
-                x_tkn[i,n*self.mean_token_len:(n+1)*self.mean_token_len,:] = tmp
+                tmp = self.token_layer(padded_token)                                # shape: (1024, 17)
+                tmp = self.relu(tmp)
+                tmp = self.token_layer2(tmp)
+                tmp = self.relu(tmp)
+                tmp = self.token_layer3(tmp)
+                tmp = tmp.transpose(0,1)                                            # shape: (17,1024)
+                x_tkn[i,n*self.max_token_len:(n+1)*self.max_token_len,:] = tmp
         x_tkn = x_tkn.to("cuda")
         
         x = self.ln(x_tkn)

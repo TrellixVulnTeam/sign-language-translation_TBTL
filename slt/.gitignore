@@ -20,3 +20,7 @@ sign_model*/
 /experiment_results
 
 /log
+
+transformer_iwslt14_deen_bpe
+
+wmt_ende_transformer
